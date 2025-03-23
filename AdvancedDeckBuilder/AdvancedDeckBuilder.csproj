@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net9.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<Nullable>enable</Nullable>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.5" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.5" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="11.2.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="CardData\*.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.2.0.9" />
+		<PackageReference Include="CardSourceGenerator" Version="1.2.7" />
+		<PackageReference Include="CliWrap" Version="3.8.1" />
+		<PackageReference Include="Fastenshtein" Version="1.0.10" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
+		<PackageReference Include="SharpCompress" Version="0.39.0" />
+		<PackageReference Include="System.Text.Json" Version="9.0.2" />
+		<PackageReference Include="System.IO.Pipelines" Version="9.0.2" />
+		<PackageReference Include="YGOHandAnalysisFramework" Version="1.2.5" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <AdditionalFiles Update="CardData\cardinfo.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Update="Views\LoadedProjectView.axaml.cs">
+	    <DependentUpon>LoadedProjectView.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+</Project>

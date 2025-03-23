@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:Models="using:AdvancedDeckBuilder.Models"
+			 xmlns:vm="using:AdvancedDeckBuilder.ViewModels"
+			 x:DataType="vm:DeckEditorViewModel"
+             x:Class="AdvancedDeckBuilder.Views.DeckEditorView">
+	<DockPanel>
+		<WrapPanel DockPanel.Dock="Top" Margin="6">
+			<WrapPanel VerticalAlignment="Center">
+				<Label VerticalContentAlignment="Center">Deck Name:</Label>
+				<TextBox VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay}" />
+			</WrapPanel>
+			<WrapPanel VerticalAlignment="Center">
+				<Label VerticalContentAlignment="Center">Deck Size:</Label>
+				<TextBlock VerticalAlignment="Center" Text="{Binding DeckSize, Mode=OneWay}" />
+			</WrapPanel>
+		</WrapPanel>
+		<Expander DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" Header="Categories">
+			<StackPanel>
+				<TextBlock Text="You can split your deck into categories so the list is easier to read. This feature is purely visual, none of this information is provided to your analyzers." />
+				<ItemsControl ItemsSource="{Binding Categories}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<TextBox Text="{Binding CategoryName, Mode=TwoWay}" />
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+				<Button Content="Add New Category" Command="{Binding AddNewCategory}" />
+			</StackPanel>
+		</Expander>
+		<ScrollViewer DockPanel.Dock="Top">
+			<ItemsControl ItemsSource="{Binding CardsByCategory}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Expander HorizontalAlignment="Stretch">
+							<Expander.Header>
+								<WrapPanel>
+									<TextBlock Text="{Binding CategoryName}" VerticalAlignment="Center" />
+									<Label Content="Size:" />
+									<TextBlock Text="{Binding CardsInCategory}" VerticalAlignment="Center" />
+								</WrapPanel>
+							</Expander.Header>
+							<DataGrid DockPanel.Dock="Top" ItemsSource="{Binding Cards}">
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="Card Name" Binding="{Binding CardName}" />
+									<DataGridTextColumn Header="Quantity" Binding="{Binding AmountOfCards}" />
+									<DataGridTemplateColumn Header="Category">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
+													<ComboBox.ItemTemplate>
+														<DataTemplate>
+															<TextBlock Text="{Binding CategoryName}" />
+														</DataTemplate>
+													</ComboBox.ItemTemplate>
+												</ComboBox>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+									<DataGridTemplateColumn Header="Add">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button HorizontalAlignment="Center" Content="+" Command="{Binding AddCard}" />
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+									<DataGridTemplateColumn Header="Remove">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button HorizontalAlignment="Center" Content="-" Command="{Binding RemoveCard}" />
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+								</DataGrid.Columns>
+							</DataGrid>
+						</Expander>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</DockPanel>
+</UserControl>

@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:AdvancedDeckBuilder.ViewModels"
+			 x:DataType="vm:AnalyzerEditorViewModel"
+             x:Class="AdvancedDeckBuilder.Views.AnalyzerEditorView">
+	<DockPanel>
+		<StackPanel DockPanel.Dock="Top" VerticalAlignment="Center">
+			<WrapPanel>
+				<Label VerticalContentAlignment="Center">Name:</Label>
+				<TextBox Text="{Binding Name}" />
+				<Label VerticalContentAlignment="Center">Card List Fill Size:</Label>
+				<ContentControl Content="{Binding CardListFillSizeSelector}" />
+				<Label VerticalContentAlignment="Center">Include Going Second:</Label>
+				<CheckBox IsChecked="{Binding IncludeGoingSecond, Mode=TwoWay}" />
+				<Label VerticalContentAlignment="Center">Use Weighted Probabilities:</Label>
+				<CheckBox IsChecked="{Binding UseWeightedProbabilities, Mode=TwoWay}" />
+				<Label VerticalContentAlignment="Center">Cache Analyzer Builds:</Label>
+				<CheckBox IsChecked="{Binding UseCache, Mode=TwoWay}" />
+			</WrapPanel>
+			<WrapPanel>
+				<Label VerticalContentAlignment="Center">Source Path:</Label>
+				<TextBox Text="{Binding SourcePath}" IsReadOnly="True" />
+				<Button Content="Choose Analyzer" Command="{Binding UpdateSourcePath}" />
+			</WrapPanel>
+			<WrapPanel>
+				<Label VerticalContentAlignment="Center">Arguments:</Label>
+				<TextBox Text="{Binding Arguments}" IsReadOnly="True" />
+			</WrapPanel>
+		</StackPanel>
+		<DockPanel DockPanel.Dock="Top">
+			<Button DockPanel.Dock="Right" Content="Clear Results" Command="{Binding ClearResults}" />
+			<WrapPanel DockPanel.Dock="Left">
+				<Label VerticalContentAlignment="Center">Results:</Label>
+				<ComboBox ItemsSource="{Binding AnalyzerResults}" SelectedItem="{Binding SelectedResults, Mode=TwoWay}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding RunTime}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+			</WrapPanel>
+		</DockPanel>
+		<TextBox DockPanel.Dock="Top" FontFamily="Consolas" Text="{Binding SelectedResults.Content}" IsReadOnly="True" TextWrapping="NoWrap" />
+	</DockPanel>
+</UserControl>

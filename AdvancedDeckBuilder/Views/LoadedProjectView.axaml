@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:AdvancedDeckBuilder.ViewModels"
+			 x:DataType="vm:LoadedProjectViewModel"
+             x:Class="AdvancedDeckBuilder.Views.LoadedProjectView">
+	<TabControl>
+		<TabItem Header="Decks">
+			<Grid DockPanel.Dock="Top">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="3*" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<DockPanel Grid.Column="0">
+					<WrapPanel DockPanel.Dock="Top">
+						<ComboBox ItemsSource="{Binding AvailableDeckEditors, Mode=OneWay}" SelectedItem="{Binding SelectedDeckEditor, Mode=TwoWay}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name, Mode=OneWay}" />
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+						<Button Content="Add New Deck" Command="{Binding CreateNewDeck}" />
+						<Button Content="Copy Deck" Command="{Binding CopyDeck}" />
+					</WrapPanel>
+					<Button DockPanel.Dock="Bottom" Content="Delete Deck" Command="{Binding DeleteSelectedDeck}" />
+					<ContentControl Content="{Binding SelectedDeckEditor}" Margin="3" />
+				</DockPanel>
+				<DockPanel Grid.Column="1">
+					<Label DockPanel.Dock="Top" Content="Card Search:" />
+					<ContentControl DockPanel.Dock="Bottom" Content="{Binding CardSearch, Mode=OneWay}" />
+				</DockPanel>
+			</Grid>
+		</TabItem>
+		<TabItem Header="Analyzers">
+			<DockPanel>
+				<WrapPanel DockPanel.Dock="Top">
+					<ComboBox ItemsSource="{Binding AvailableAnalyzers, Mode=OneWay}" SelectedItem="{Binding SelectedAnalyzer, Mode=TwoWay}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Name, Mode=OneWay}" />
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<Button Content="Add New Analyzer" Command="{Binding CreateNewAnalyzer}" />
+				</WrapPanel>
+				<Button DockPanel.Dock="Top" Content="Run Analyzer" Command="{Binding RunSelectedAnalyzer}" />
+				<Button DockPanel.Dock="Bottom" Content="Delete Analyzer" Command="{Binding DeleteSelectedAnalyzer}" />
+				<ContentControl DockPanel.Dock="Top" Content="{Binding SelectedAnalyzer}" />
+			</DockPanel>
+		</TabItem>
+		<TabItem Header="Project">
+			<StackPanel>
+				<WrapPanel>
+					<Label VerticalContentAlignment="Center">Project Name:</Label>
+					<TextBox VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay}" />
+				</WrapPanel>
+				<WrapPanel>
+					<Label VerticalContentAlignment="Center">Save Location:</Label>
+					<TextBlock VerticalAlignment="Center" Text="{Binding SaveLocation, Mode=OneWay}" />
+				</WrapPanel>
+				<WrapPanel>
+					<Label VerticalContentAlignment="Center">Id:</Label>
+					<TextBlock VerticalAlignment="Center" Text="{Binding Id, Mode=OneWay}" />
+				</WrapPanel>
+				<WrapPanel>
+					<Label VerticalContentAlignment="Center">Cache Location:</Label>
+					<TextBox VerticalAlignment="Center" Text="{Binding CacheLocation, Mode=OneWay}" />
+				</WrapPanel>
+			</StackPanel>
+		</TabItem>
+	</TabControl>
+</UserControl>

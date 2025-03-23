@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:AdvancedDeckBuilder.ViewModels.Search"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:b="using:Avalonia.Xaml.Interactions.Core"
+			 x:DataType="vm:CardSearchViewModel"
+             x:Class="AdvancedDeckBuilder.Views.Search.CardSearchView">
+	<DockPanel>
+		<TextBox Text="{Binding SearchTerm, Mode=TwoWay}" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
+		<ScrollViewer DockPanel.Dock="Top">
+			<ItemsControl ItemsSource="{Binding SearchResults, Mode=OneWay}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding CardName, Mode=OneWay}" FontWeight="Bold">
+							<i:Interaction.Behaviors>
+								<b:EventTriggerBehavior EventName="PointerReleased">
+									<b:InvokeCommandAction Command="{Binding ResultSelected}" CommandParameter="{Binding}" />
+								</b:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</TextBlock>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</DockPanel>
+</UserControl>
