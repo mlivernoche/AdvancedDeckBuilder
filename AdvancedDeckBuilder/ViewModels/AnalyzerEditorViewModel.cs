@@ -96,7 +96,13 @@ public sealed class AnalyzerEditorViewModel : ViewModelBase
         SelectedResults = AnalyzerResults.LastOrDefault();
 
         UpdateSourcePath = ReactiveCommand.CreateFromTask(UpdateSourcePathImpl);
-        ClearResults = ReactiveCommand.Create(() => Editor.ClearResults());
+        ClearResults = ReactiveCommand.Create(() =>
+        {
+            if(SelectedResults is AnalyzerResults results)
+            {
+                Editor.ClearResults(results);
+            }
+        }, canExecute: this.WhenAnyValue(static viewModel => viewModel.SelectedResults).Select(static results => results is not null));
 
         CardListFillSizeSelector = new NumberSelectorViewModel(Editor.AvailableCardListFillSizes);
         CardListFillSizeSelector.SelectedNumber = Editor.CardListFillSize;

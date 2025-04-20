@@ -127,9 +127,9 @@ public sealed class Analyzer : ReactiveObject
         return ResultsCache.Connect();
     }
 
-    public void ClearResults()
+    public void ClearResults(AnalyzerResults result)
     {
-        ResultsCache.Clear();
+        ResultsCache.Remove(result);
     }
 
     public void AddEntry(AnalyzerResults entry)
