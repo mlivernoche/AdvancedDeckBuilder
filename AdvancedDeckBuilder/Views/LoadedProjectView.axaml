@@ -46,8 +46,9 @@
 						</ComboBox.ItemTemplate>
 					</ComboBox>
 					<Button Content="Add New Analyzer" Command="{Binding CreateNewAnalyzer}" />
+					<Button Content="Run Analyzer" Command="{Binding RunSelectedAnalyzer}" />
 				</WrapPanel>
-				<Button DockPanel.Dock="Top" Content="Run Analyzer" Command="{Binding RunSelectedAnalyzer}" />
+				<Button DockPanel.Dock="Top" Content="Cancel Analyzer" Command="{Binding CancelRunSelectedAnalyzer}" />
 				<Button DockPanel.Dock="Bottom" Content="Delete Analyzer" Command="{Binding DeleteSelectedAnalyzer}" />
 				<ContentControl DockPanel.Dock="Top" Content="{Binding SelectedAnalyzer}" />
 			</DockPanel>

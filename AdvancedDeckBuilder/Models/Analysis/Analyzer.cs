@@ -137,7 +137,7 @@ public sealed class Analyzer : ReactiveObject
         ResultsCache.AddOrUpdate(entry);
     }
 
-    public async Task RunAnalyzer(string workingDirectory, AnalyzerResults entry, IEnumerable<DeckDTO> decks, CancellationToken cancellationToken = default)
+    public async Task RunAnalyzer(string workingDirectory, AnalyzerResults entry, IEnumerable<DeckDTO> decks, CancellationToken cancellationToken)
     {
         try
         {
@@ -184,7 +184,7 @@ public sealed class Analyzer : ReactiveObject
         }
     }
 
-    private async Task RunAnalyzer(ConsoleOptions consoleOptions, AnalyzerResults entry, IEnumerable<DeckDTO> decks, CancellationToken cancellationToken = default)
+    private async Task RunAnalyzer(ConsoleOptions consoleOptions, AnalyzerResults entry, IEnumerable<DeckDTO> decks, CancellationToken cancellationToken)
     {
         try
         {

@@ -139,7 +139,7 @@ public sealed class AnalyzerEditorViewModel : ViewModelBase
         };
     }
 
-    public async Task RunAnalyzer(string workingDirectory, IEnumerable<DeckDTO> decks, CancellationToken cancellationToken = default)
+    public async Task RunAnalyzer(string workingDirectory, IEnumerable<DeckDTO> decks, CancellationToken cancellationToken)
     {
         var entry = new AnalyzerResults(DateTime.Now);
         Editor.AddEntry(entry);

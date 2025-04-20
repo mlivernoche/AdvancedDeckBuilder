@@ -71,6 +71,8 @@ public sealed class LoadedProjectViewModel : ViewModelBase
     }
 
     public ReactiveCommand<Unit, Unit> RunSelectedAnalyzer { get; }
+    private ReactiveCommand<Unit, Unit> RunSelectedAnalyzerWrapped { get; }
+    public ReactiveCommand<Unit, Unit> CancelRunSelectedAnalyzer { get; }
 
     public CardSearchViewModel CardSearch { get; }
 
@@ -115,7 +117,8 @@ public sealed class LoadedProjectViewModel : ViewModelBase
             }
         }, this.WhenAnyValue(static viewModel => viewModel.SelectedAnalyzer).Select(CanDeleteSelectedAnalyzer));
 
-        RunSelectedAnalyzer = ReactiveCommand.CreateFromTask(async cancellationToken =>
+
+        RunSelectedAnalyzerWrapped = ReactiveCommand.CreateFromTask(async cancellationToken =>
         {
             if (SelectedAnalyzer is AnalyzerEditorViewModel viewModel)
             {
@@ -123,6 +126,8 @@ public sealed class LoadedProjectViewModel : ViewModelBase
                 await viewModel.RunAnalyzer(CacheLocation, decks, cancellationToken);
             }
         });
+        RunSelectedAnalyzer = ReactiveCommand.CreateFromObservable(() => RunSelectedAnalyzerWrapped.Execute().TakeUntil(CancelRunSelectedAnalyzer));
+        CancelRunSelectedAnalyzer = ReactiveCommand.Create(() => { }, canExecute: RunSelectedAnalyzer.IsExecuting);
 
         CardSearch = new CardSearchViewModel();
         CardSearch
