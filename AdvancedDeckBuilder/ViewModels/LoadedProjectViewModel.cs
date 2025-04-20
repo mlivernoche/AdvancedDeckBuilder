@@ -191,8 +191,8 @@ public sealed class LoadedProjectViewModel : ViewModelBase
         {
             Name = Name,
             Id = Project.Id,
-            Decks = AvailableDeckEditors.Select(static deck => deck.GetDTO()).ToArray(),
-            Analyzers = AvailableAnalyzers.Select(static analyzer => analyzer.GetDTO()).ToArray(),
+            Decks = [.. AvailableDeckEditors.Select(static deck => deck.GetDTO())],
+            Analyzers = [.. AvailableAnalyzers.Select(static analyzer => analyzer.GetDTO())],
         };
     }
 }
