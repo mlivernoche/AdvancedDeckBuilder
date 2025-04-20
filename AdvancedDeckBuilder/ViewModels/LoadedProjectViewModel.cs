@@ -86,7 +86,7 @@ public sealed class LoadedProjectViewModel : ViewModelBase
 
         CreateNewDeck = ReactiveCommand.Create(CreateNewDeckImpl);
         CopyDeck = ReactiveCommand.Create(CopyDeckImpl, canExecute: this.WhenAnyValue(static vm => vm.SelectedDeckEditor).Select(static deck => deck != null));
-        DeleteSelectedDeck = ReactiveCommand.Create(DeleteSelectedDeckImpl, this.WhenAnyValue(static viewModel => viewModel.SelectedDeckEditor).Select(CanDeleteSelectedDeckImpl));
+        DeleteSelectedDeck = ReactiveCommand.Create(DeleteSelectedDeckImpl, canExecute: this.WhenAnyValue(static viewModel => viewModel.SelectedDeckEditor).Select(CanDeleteSelectedDeckImpl));
         AddCardToSelectedDeck = ReactiveCommand.CreateFromTask<CardSearchResultViewModel>(AddCardToDeckEditor);
 
         Project
@@ -115,7 +115,7 @@ public sealed class LoadedProjectViewModel : ViewModelBase
             {
                 Project.RemoveAnalyzer(viewModel.Id);
             }
-        }, this.WhenAnyValue(static viewModel => viewModel.SelectedAnalyzer).Select(CanDeleteSelectedAnalyzer));
+        }, canExecute: this.WhenAnyValue(static viewModel => viewModel.SelectedAnalyzer).Select(CanDeleteSelectedAnalyzer));
 
 
         RunSelectedAnalyzerWrapped = ReactiveCommand.CreateFromTask(async cancellationToken =>
