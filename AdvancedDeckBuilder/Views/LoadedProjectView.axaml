@@ -69,7 +69,7 @@
 				</WrapPanel>
 				<WrapPanel>
 					<Label VerticalContentAlignment="Center">Cache Location:</Label>
-					<TextBox VerticalAlignment="Center" Text="{Binding CacheLocation, Mode=OneWay}" />
+					<TextBox VerticalAlignment="Center" Text="{Binding CacheLocation, Mode=OneWay}" IsReadOnly="True" />
 				</WrapPanel>
 			</StackPanel>
 		</TabItem>
